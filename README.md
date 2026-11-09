@@ -1,42 +1,29 @@
-# DIDMail Management Skill
+# DIDMail Skills
 
-Use `$didmail-management` in Codex to manage a DIDMail node through its MCP
-tools. The skill discovers tools and resolves technical identifiers before
-asking you for any missing business parameters. For writes, it prepares the
-operation, waits for a DIDMail administrator to approve it once, and executes
-the approved operation through MCP.
+Use DIDMail from Codex with a skill for the task at hand.
 
-## Risk notice and usage terms
-
-**Management actions can have lasting effects.** Deleting mail can remove
-records and encrypted attachments. On-chain actions can incur fees, spend
-funds, or lock assets. Before approving a write, verify the instance, network,
-target, amount, fees, and scope on the ARC approval page. After a timeout,
-check the original operation before retrying.
-
-Connect only to a node you are authorized to manage. Keep keys in a secret
-store and follow the node's rules for data sent to an AI client. Review the
-[usage terms](skills/didmail-management/TERMS.md) before enabling access.
+| Skill | What it does | Connection |
+| --- | --- | --- |
+| `$didmail-management` | Inspect and manage a node, including storage, policies, templates and reviewed chain operations | An authorized DIDMail Server at `/mcp/admin` |
+| `$didmail-mailbox` | Search a synced inbox, read selected cached bodies, and prepare a text-only internal email | An explicitly enabled local session in DIDMail Desktop |
 
 ## Install in Codex
 
-Ask Codex to install the skill using its skill installer.
+Ask Codex to install one or both versioned skills.
 
 ```text
-Use $skill-installer to install https://github.com/didmail-org/didmail-management-skill/tree/v0.1.1/skills/didmail-management
+Use $skill-installer to install https://github.com/didmail-org/didmail-skill/tree/v0.2.0/skills/didmail-management
+Use $skill-installer to install https://github.com/didmail-org/didmail-skill/tree/v0.2.0/skills/didmail-mailbox
 ```
 
-Open a new chat and invoke `$didmail-management`. The skill instructions are
-in [SKILL.md](skills/didmail-management/SKILL.md).
+Open a new chat and invoke the installed skill by name. Each skill uses the
+tools exposed by its configured connection.
 
-## Connect your DIDMail node
+## Node management
 
-Your node operator needs to enable `/mcp/admin` and enroll a dedicated ARC
-management access key for that instance. Use `admin` for general management
-and `owner` for owner transfer and gas staking. Keep the key in a secret store
-and make it available to the Codex process as `DIDMAIL_MCP_MANAGEMENT_KEY`.
-
-Replace the example origin with your node's canonical protocol origin.
+The node operator enables `/mcp/admin` and enrolls a dedicated ARC key for
+that instance. Use `admin` for general management and `owner` for owner
+transfer and gas staking. Supply the key to Codex via your secret store.
 
 ```sh
 codex mcp add didmail-management \
@@ -44,22 +31,42 @@ codex mcp add didmail-management \
   --bearer-token-env-var DIDMAIL_MCP_MANAGEMENT_KEY
 ```
 
-For a local node, use the canonical local origin configured by its operator.
-The read-only inspection connection uses a separate credential. To revoke
-management access, revoke the dedicated access key in the instance's ARC
-administration. Remove the saved Codex connection with
-`codex mcp remove didmail-management` when it is no longer needed.
+Replace the example origin with the node's canonical protocol origin. A
+proposed write requires a one-time review in the node's ARC browser session.
+Deletion can remove encrypted mail and attachments. Chain operations can
+spend funds, incur fees, or lock assets. Check the original operation after
+an uncertain result. Revoke access in the instance's ARC administration.
+[Management usage terms](skills/didmail-management/TERMS.md)
+
+## Personal mailbox
+
+Use a DIDMail Desktop build that includes **Settings → Mailbox MCP**. Select
+the node and mailbox in Desktop, sync your inbox, and start a local session.
+Enable message-body reads or internal drafting if needed. Keep the page open
+and use the displayed loopback URL and token on the same computer.
+
+```sh
+codex mcp add didmail-mailbox \
+  --url http://127.0.0.1:PORT/mcp \
+  --bearer-token-env-var DIDMAIL_MAILBOX_MCP_TOKEN
+```
+
+Replace the example URL with the URL shown by Desktop. Supply the session
+token to the Codex process through a local secret store. The session expires
+after 30 minutes or when you leave the page, hide the app, or switch account
+or node. Set up the connection again with the new URL and token for a later
+session.
+
+The AI can see the mailbox data you authorize. Drafting is limited to plain
+text and internal delivery. Review the recipient, message and retention in
+Desktop and confirm there to send. Use Outbox to check an uncertain result.
+[Mailbox usage terms](skills/didmail-mailbox/TERMS.md)
 
 ## Example prompts
 
 - `$didmail-management Show this node's storage usage and explain what the reported size covers.`
-- `$didmail-management Pick a business envelope sample and prepare to create and publish it. Ask me for any missing details.`
-- `$didmail-management Show the current attachment limits and prepare to lower the maximum attachment count to three.`
-
-For a proposed write, open the approval link and review the exact operation
-and any applicable fees. Confirm in your ARC browser session, then return to
-Codex so it can execute through MCP. ARC handles membership changes and
-invitations. Recharge uses an external wallet.
+- `$didmail-mailbox Find the recent onboarding email in my synced inbox. Read it if body access is enabled.`
+- `$didmail-mailbox Draft an internal reply thanking the sender. Ask me for any missing details, then prepare it for my review.`
 
 ## License
 
