@@ -1,14 +1,9 @@
----
-name: didmail-mailbox
-description: Query an authorized DIDMail Desktop inbox, read selected cached messages, or prepare internal mail for the mailbox owner to approve. Use for personal mail tasks on the local DIDMail mailbox MCP connection.
----
-
 # DIDMail mailbox
 
 Use the local `didmail-mailbox` MCP connection for the mailbox and node the
 user selected in DIDMail Desktop. Discover its live tools. The desktop
 settings page grants message-body access and draft preparation separately.
-See [usage terms](TERMS.md) before enabling access or staging a draft.
+See [usage terms](mailbox-terms.md) before enabling access or staging a draft.
 
 ## Read mail
 
