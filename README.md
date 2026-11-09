@@ -13,7 +13,7 @@ for the task you ask it to perform.
 Ask Codex to install the versioned skill.
 
 ```text
-Use $skill-installer to install https://github.com/didmail-org/didmail-skill/tree/v0.3.0/skills/didmail
+Use $skill-installer to install https://github.com/didmail-org/didmail-skill/tree/v0.3.1/skills/didmail
 ```
 
 Open a new chat and invoke `$didmail`. Configure only the MCP connections you
@@ -64,9 +64,46 @@ Desktop and confirm there to send. Use Outbox to check an uncertain result.
 
 ## Example prompts
 
-- `$didmail Show this node's storage usage and explain what the reported size covers.`
-- `$didmail Find the recent onboarding email in my synced inbox. Read it if body access is enabled.`
-- `$didmail Draft an internal reply thanking the sender. Ask me for any missing details, then prepare it for my review.`
+Choose a prompt below and replace the target or amount with the one you intend to use. The Skill asks for any missing details.
+
+### Node and members
+
+- `$didmail Show this node’s storage usage and explain what it covers.`
+- `$didmail List active ARC members and identify which have linked mailboxes.`
+
+### Delivery and storage cleanup
+
+- `$didmail Find the delivery record for the message I identify and explain its status and fee breakdown.`
+- `$didmail Find the exact stored message I identify, show what deletion would remove, and prepare it for my approval.`
+
+### Policy and sender access
+
+- `$didmail Explain the current sending policy and list blocked sender DIDs.`
+- `$didmail Read the current mail policy and prepare a change to allow up to three attachments on new mail. Keep the other rules as they are.`
+
+### Envelopes and namecards
+
+- `$didmail List my published envelopes and namecards. Show which are public and which are for members.`
+- `$didmail Pick a business envelope sample and prepare to create and publish it. Ask me for any missing details.`
+
+### Funds and staking
+
+- `$didmail Show the node’s native balance, network and service-node NFT stake. Include gas stake if my role permits.`
+- `$didmail Prepare a transfer of 0.01 native tokens to the verified owner. Show the recipient and quote for approval.`
+
+Owner transfers and gas staking require the ARC owner role.
+
+### Personal mailbox
+
+- `$didmail Find the recent onboarding email in my synced inbox. Summarize it if body access is enabled.`
+- `$didmail Draft a plain-text internal reply thanking the sender. Ask for any missing details, then prepare it for my review.`
+
+### Review and confirm
+
+1. For a read, give the target node, mailbox or record when needed. The Skill reports what it can verify and which data is unavailable.
+2. For a node write, review the exact proposal and any fee on the ARC approval page. Confirm once, then return to Codex so it can execute through MCP.
+3. For internal mail, review the recipient, subject, body and retention in **Settings → Mailbox MCP** in DIDMail Desktop. Confirm there to send.
+4. If execution is uncertain, check the original proposal or Outbox before asking the Skill to prepare another operation.
 
 ## License
 
