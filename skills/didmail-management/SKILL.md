@@ -10,6 +10,11 @@ Use the target instance's dedicated management MCP connection. Read-only
 management connection when the task calls for individual records or changes.
 Use the selected connection's instance throughout the task.
 
+Read [usage terms](TERMS.md) before setting up access or preparing a write.
+Keep credentials and unnecessary private records out of chat. Flag the scope
+of deletion or publication and any spending, fees, or locked assets when
+presenting an approval for a consequential operation.
+
 ## Choose parameters
 
 1. Find the relevant tool and inspect its live input schema. Use MCP reads to

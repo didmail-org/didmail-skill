@@ -6,12 +6,24 @@ asking you for any missing business parameters. For writes, it prepares the
 operation, waits for a DIDMail administrator to approve it once, and executes
 the approved operation through MCP.
 
+## Risk notice and usage terms
+
+**Management actions can have lasting effects.** Deleting mail can remove
+records and encrypted attachments. On-chain actions can incur fees, spend
+funds, or lock assets. Before approving a write, verify the instance, network,
+target, amount, fees, and scope on the ARC approval page. After a timeout,
+check the original operation before retrying.
+
+Connect only to a node you are authorized to manage. Keep keys in a secret
+store and follow the node's rules for data sent to an AI client. Review the
+[usage terms](skills/didmail-management/TERMS.md) before enabling access.
+
 ## Install in Codex
 
 Ask Codex to install the skill using its skill installer.
 
 ```text
-Use $skill-installer to install https://github.com/didmail-org/didmail-management-skill/tree/v0.1.0/skills/didmail-management
+Use $skill-installer to install https://github.com/didmail-org/didmail-management-skill/tree/v0.1.1/skills/didmail-management
 ```
 
 Open a new chat and invoke `$didmail-management`. The skill instructions are
